@@ -3,17 +3,17 @@ import React, { useState, useEffect } from "react";
 const StatesInput = () => {
   const [newState, setNewState] = useState(null);
   const [newPremium, setNewPremium] = useState(null);
-  const TaxRates = [
-    { "New York": 3.5 },
-    { "New Jersey": 3 },
-    { "Florida": 5 },
-    { "Kentucky": 4 },
-  ];
-
-  let StatePremiums = [
+  const [StatePremiums, setStatePremiums] = useState([
     { id: 1, state: "New York", premium: 3.5 },
     { id: 2, state: "New Jersey", premium: 3 },
     { id: 3, state: "Florida", premium: 5 },
+  ]);
+
+  const TaxRates = [
+    { "New York": 3.5 },
+    { "New Jersey": 3 },
+    { Florida: 5 },
+    { Kentucky: 4 },
   ];
 
   const handleChange = (e) => {
@@ -25,17 +25,21 @@ const StatesInput = () => {
   };
 
   const handleSubmit = () => {
-    StatePremiums.push({
-      id: StatePremiums.length - 1,
-      state: newState,
-      premium: newPremium,
-    });
-    console.log(StatePremiums);
+    setStatePremiums([
+      ...StatePremiums,
+      {
+        id: StatePremiums.length,
+        state: newState.State,
+        premium: newPremium.Premium,
+      },
+    ]);
+    console.log(StatePremiums, "hello");
   };
-  console.log(StatePremiums);
+
+  console.log(StatePremiums, "StatePremiums");
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form>
         <input
           id="State"
           type="text"
@@ -44,11 +48,13 @@ const StatesInput = () => {
         />
         <input
           id="Premium"
-          type="text"
+          type="number"
           placeholder="Premium"
           onChange={handleChange}
         />
-        <button onClick={handleSubmit}>Input</button>
+        <button type="button" onClick={handleSubmit}>
+          Input
+        </button>
       </form>
       <div>
         {StatePremiums.map((state, index) => (
