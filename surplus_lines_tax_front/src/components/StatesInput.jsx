@@ -4,16 +4,16 @@ const StatesInput = () => {
   const [newState, setNewState] = useState(null);
   const [newPremium, setNewPremium] = useState(null);
   const [StatePremiums, setStatePremiums] = useState([
-    { id: 1, state: "New York", premium: 3.5 },
-    { id: 2, state: "New Jersey", premium: 3 },
-    { id: 3, state: "Florida", premium: 5 },
+    { id: 1, state: "New York", premium: 3000 },
+    { id: 2, state: "New Jersey", premium: 4000 },
+    { id: 3, state: "Florida", premium: 5000 },
   ]);
 
   const TaxRates = [
-    { "New York": 3.5 },
-    { "New Jersey": 3 },
-    { Florida: 5 },
-    { Kentucky: 4 },
+    { state: "New York", taxRate: 3.5 },
+    { state: "New Jersey", taxRate: 3 },
+    { state: "Florida", taxRate: 5 },
+    { state: "Kentucky", taxRate: 4 },
   ];
 
   const handleChange = (e) => {
@@ -28,7 +28,7 @@ const StatesInput = () => {
     setStatePremiums([
       ...StatePremiums,
       {
-        id: StatePremiums.length,
+        id: StatePremiums.length + 1,
         state: newState.State,
         premium: newPremium.Premium,
       },
@@ -37,6 +37,21 @@ const StatesInput = () => {
   };
 
   console.log(StatePremiums, "StatePremiums");
+
+  const TaxFunc = (currentState,premium) => {
+    console.log("current", currentState);
+    console.log("TaxRates",TaxRates);
+    console.log("premium",premium);
+    let premiumDue = 0
+    TaxRates.map((state, index) => {
+        if(state.state == currentState){
+            console.log(premium*(state.taxRate/100))
+            premiumDue = Math.round((premium*(state.taxRate/100)+ Number.EPSILON) * 100) / 100
+        }
+    })
+    return premiumDue
+  };
+
   return (
     <div>
       <form>
@@ -59,9 +74,10 @@ const StatesInput = () => {
       <div>
         {StatePremiums.map((state, index) => (
           <ul key={index}>
-            <li>{state.id}</li>
-            <li>{state.state}</li>
-            <li>{state.premium}</li>
+            <li>ID:{state.id}</li>
+            <li>State:{state.state}</li>
+            <li>Premium:{state.premium}</li>
+            <li>taxes due:{TaxFunc(state.state, state.premium)}</li>
           </ul>
         ))}
       </div>
