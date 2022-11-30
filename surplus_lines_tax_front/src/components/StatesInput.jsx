@@ -73,21 +73,20 @@ const StatesInput = () => {
     console.warn(e.target.value);
     console.log(newState);
     console.log("newPremium",newPremium);
-
-    console.log(TaxDue);
   };
 
   const handleSubmit = async () => {
+    console.log("awaitcheck")
     let taxdue = await TaxFunc(newState.State,newPremium.Premium)
     console.log("tax",taxdue,newPremium.Premium)
-    // setTaxDue({ ...TaxDue, [taxDue]: TaxFunc(newState.State,newPremium.Premium)});
+    setTaxDue({ ...TaxDue, taxdue});
     setStatePremiums([
       ...StatePremiums,
       {
         id: StatePremiums.length + 1,
         state: newState.State,
         premium: newPremium.Premium,
-        taxDue: TaxDue.taxDue
+        taxDue: TaxDue
       },
     ]);
     console.log(StatePremiums, "hello");
@@ -101,10 +100,10 @@ const StatesInput = () => {
     console.log("premium",premium);
     let premiumDue = 0
     TaxRatesARY.map((state, index) => {
-        if(state.state == state || state.abv == state){
+        if(state.state == currentState || state.abv == currentState){
             console.log(premium*(state.taxRate/100))
             premiumDue = Math.round((premium*(state.taxRate/100)+ Number.EPSILON) * 100) / 100
-            
+            console.log("premiumDue",premiumDue)
         }
     })
     return premiumDue
@@ -135,7 +134,7 @@ const StatesInput = () => {
             <li>ID:{state.id}</li>
             <li>State:{state.state}</li>
             <li>Premium:{state.premium}</li>
-            <li>taxes due:{}</li>
+            <li>taxes due:{TaxDue}</li>
           </ul>
         ))}
       </div>
