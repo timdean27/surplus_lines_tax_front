@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
 
+import TaxRates from './TaxRates'
+
+
 const StatesInput = () => {
   const [newState, setNewState] = useState(null);
   const [newPremium, setNewPremium] = useState(null);
+  const [TaxDue, setTaxDue] = useState(null);
   const [StatePremiums, setStatePremiums] = useState([
-    { id: 1, state: "New York", premium: 3000 },
-    { id: 2, state: "New Jersey", premium: 4000 },
-    { id: 3, state: "Florida", premium: 5000 },
+    { id: 1, state: "New York", premium: 3000 ,taxDue: 0},
+    { id: 2, state: "New Jersey", premium: 4000,taxDue: 0 },
+    { id: 3, state: "Florida", premium: 5000,taxDue: 0 },
   ]);
 
-  const TaxRates = [
+  const TaxRatesARY = [
     { state: "Arkansas",abv:"AK", taxRate: 2.7},
     { state: "Alabama",abv:"AL", taxRate: 6},
     { state: "Alaska",abv:"AR", taxRate: 4},
@@ -61,8 +65,6 @@ const StatesInput = () => {
     { state: "Wisconsin",abv:"WI", taxRate: 3},
     { state: "West Virginia",abv:"WV", taxRate: 4},
     { state: "Wyoming",abv:"WY", taxRate: 3},
-
-    
   ];
 
   const handleChange = (e) => {
@@ -70,16 +72,21 @@ const StatesInput = () => {
     setNewPremium({ ...newPremium, [e.target.id]: e.target.value });
     console.warn(e.target.value);
     console.log(newState);
-    console.log(newPremium);
+    console.log("newPremium",newPremium);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    console.log("awaitcheck")
+    let taxdue = await TaxFunc(newState.State,newPremium.Premium)
+    console.log("tax",taxdue,newPremium.Premium)
+    setTaxDue({ ...TaxDue, taxdue});
     setStatePremiums([
       ...StatePremiums,
       {
         id: StatePremiums.length + 1,
         state: newState.State,
         premium: newPremium.Premium,
+        taxDue: TaxDue
       },
     ]);
     console.log(StatePremiums, "hello");
@@ -87,15 +94,16 @@ const StatesInput = () => {
 
   console.log(StatePremiums, "StatePremiums");
 
-  const TaxFunc = (currentState) => {
-    console.log("current", currentState.state);
-    console.log("TaxRates",TaxRates);
-    console.log("premium",currentState.premium);
+  const TaxFunc = (currentState, premium) => {
+    console.log("current", currentState);
+    console.log("TaxRates",TaxRatesARY);
+    console.log("premium",premium);
     let premiumDue = 0
-    TaxRates.map((state, index) => {
-        if(state.state == currentState.state || state.abv == currentState.state){
-            console.log(currentState.premium*(state.taxRate/100))
-            premiumDue = Math.round((currentState.premium*(state.taxRate/100)+ Number.EPSILON) * 100) / 100
+    TaxRatesARY.map((state, index) => {
+        if(state.state == currentState || state.abv == currentState){
+            console.log(premium*(state.taxRate/100))
+            premiumDue = Math.round((premium*(state.taxRate/100)+ Number.EPSILON) * 100) / 100
+            console.log("premiumDue",premiumDue)
         }
     })
     return premiumDue
@@ -126,10 +134,11 @@ const StatesInput = () => {
             <li>ID:{state.id}</li>
             <li>State:{state.state}</li>
             <li>Premium:{state.premium}</li>
-            <li>taxes due:{TaxFunc(state)}</li>
+            <li>taxes due:{TaxDue}</li>
           </ul>
         ))}
       </div>
+      <TaxRates TaxRatesARY={TaxRatesARY}/>
     </div>
   );
 };
