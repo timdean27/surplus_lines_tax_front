@@ -1,1 +1,11 @@
 
+.div_taxRates_table{
+  display:inline;
+  background-color: green;
+}
+
+.ul_taxRates_table li{
+  display:inline;
+  margin-right: 1vw;
+  margin-top: 0;
+}
