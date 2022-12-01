@@ -5,6 +5,8 @@ import TaxRates from "./TaxRates";
 const StatesInput = () => {
   const [newState, setNewState] = useState(null);
   const [newPremium, setNewPremium] = useState(null);
+  const [newCity, setNewCity] = useState(null);
+  const [newZipcode, setNewZipcode] = useState(null);
   const [StatePremiums, setStatePremiums] = useState([
     { id: 1, state: "New York", premium: 3000, taxesDue: 0 },
     { id: 2, state: "New Jersey", premium: 4000, taxesDue: 0 },
@@ -68,6 +70,8 @@ const StatesInput = () => {
   const handleChange = (e) => {
     setNewState({ ...newState, [e.target.id]: e.target.value });
     setNewPremium({ ...newPremium, [e.target.id]: e.target.value });
+    setNewCity({ ...newCity, [e.target.id]: e.target.value });
+    setNewZipcode({ ...newZipcode, [e.target.id]: e.target.value });
     console.warn(e.target.value);
     console.log(newState);
     console.log("newPremium", newPremium);
@@ -82,6 +86,8 @@ const StatesInput = () => {
       {
         id: StatePremiums.length + 1,
         state: newState.State,
+        city: newCity.City,
+        zipcode: newZipcode.Zipcode,
         premium: newPremium.Premium,
         taxesDue: taxdue,
       },
@@ -123,6 +129,18 @@ const StatesInput = () => {
           placeholder="Premium"
           onChange={handleChange}
         />
+         <input
+          id="City"
+          type="text"
+          placeholder="City"
+          onChange={handleChange}
+        />
+         <input
+          id="Zipcode"
+          type="number"
+          placeholder="Zip Code"
+          onChange={handleChange}
+        />
         <button type="button" onClick={handleSubmit}>
           Input
         </button>
@@ -132,6 +150,8 @@ const StatesInput = () => {
           <ul key={index}>
             <li>ID:{state.id}</li>
             <li>State:{state.state}</li>
+            <li>City:{state.city}</li>
+            <li>Zip:{state.zipcode}</li>
             <li>Premium:{state.premium}</li>
             <li>taxes due:{state.taxesDue}</li>
           </ul>
