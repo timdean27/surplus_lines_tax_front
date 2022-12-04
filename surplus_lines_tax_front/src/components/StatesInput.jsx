@@ -2,16 +2,12 @@ import React, { useState, useEffect } from "react";
 
 import TaxRates from "./TaxRates";
 
-const StatesInput = () => {
+const StatesInput = ({StatePremiums ,setStatePremiums}) => {
   const [newState, setNewState] = useState(null);
   const [newPremium, setNewPremium] = useState(null);
   const [newCity, setNewCity] = useState(null);
   const [newZipcode, setNewZipcode] = useState(null);
-  const [StatePremiums, setStatePremiums] = useState([
-    { id: 1, state: "New York", premium: 3000, taxesDue: 0 },
-    { id: 2, state: "New Jersey", premium: 4000, taxesDue: 0 },
-    { id: 3, state: "Florida", premium: 5000, taxesDue: 0 },
-  ]);
+
 
   const TaxRatesARY = [
     { state: "Arkansas", abv: "AK", taxRate: 2.7 },

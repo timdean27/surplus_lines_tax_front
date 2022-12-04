@@ -1,6 +1,7 @@
 import React from 'react'
 
-const StateTotals = () => {
+const StateTotals = ({StatePremiums, setStatePremiums}) => {
+    console.log(StatePremiums)
   return (
     <div>StateTotals</div>
   )
