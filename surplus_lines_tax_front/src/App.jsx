@@ -9,6 +9,7 @@ function App() {
     { id: 1, state: "New York", premium: 3000, taxesDue: 0 },
     { id: 2, state: "New Jersey", premium: 4000, taxesDue: 0 },
     { id: 3, state: "Florida", premium: 5000, taxesDue: 0 },
+    { id: 4, state: "New York", premium: 3000, taxesDue: 0 },
   ]);
   return (
 

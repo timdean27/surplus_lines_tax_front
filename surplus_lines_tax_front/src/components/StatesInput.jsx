@@ -84,7 +84,7 @@ const StatesInput = ({StatePremiums ,setStatePremiums}) => {
         state: newState.State,
         city: newCity.City,
         zipcode: newZipcode.Zipcode,
-        premium: newPremium.Premium,
+        premium: parseInt(newPremium.Premium),
         taxesDue: taxdue,
       },
     ]);
