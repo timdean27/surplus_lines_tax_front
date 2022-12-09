@@ -15,7 +15,8 @@ const Home = ({StatePremiums ,setStatePremiums}) => {
         This app will be a one stop to allow business to report surplus lines
         taxes to all states and have required forms auto generated and filled
       </p>
-      <Link to="/state/totals">State Totals</Link>
+      <Link to="/state/totals"><button>State Totals</button></Link>
+      
       <div>
         <StatesInput
           StatePremiums={StatePremiums}
