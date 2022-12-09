@@ -1,8 +1,9 @@
 import React from 'react'
 import { useState , useEffect} from 'react'
+import { useNavigate } from "react-router-dom";
 const StateTotals = ({StatePremiums, setStatePremiums}) => {
     console.log("state premiums in Totals page", StatePremiums)
-
+    const navigate = useNavigate();
     const [stateTotal, setStateTotal] = useState(null);
 
     let hash = {}
@@ -38,6 +39,7 @@ useEffect(() => {
   return (
     <div>
     <h1>State Totals Page</h1>
+    <button onClick={() => navigate(-1)}>Back</button>
     <div>
     {/* {stateTotal.map((state, index) => (
       <ul key={index}>
