@@ -41,14 +41,14 @@ useEffect(() => {
     <h1>State Totals Page</h1>
     <button onClick={() => navigate(-1)}>Back</button>
     <div>
-    {/* {stateTotal.map((state, index) => (
+    {stateTotal.map((state, index) => (
       <ul key={index}>
         <li>ID:{state.id}</li>
         <li>State:{state.state}</li>
         <li>Premium:{state.premium}</li>
         <li>taxes due:{state.taxesDue}</li>
       </ul>
-    ))} */}
+    ))}
     </div>
     </div>
   )
